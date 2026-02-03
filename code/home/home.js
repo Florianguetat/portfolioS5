@@ -5,7 +5,7 @@ function redirectToLanguage(languageCode) {
     '3': '../italiano/iniziale.html',
     '4': '../español/inicio.html',
     '5': '../deutsch/startseite.html',
-    '6': '../portugues/inicial.html'
+    '6': '../português/inicial.html'
   };
 
   window.location.href = urls[languageCode];
