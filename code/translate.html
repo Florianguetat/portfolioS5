@@ -1,0 +1,37 @@
+<button onclick="translatePage('en')">Translate to English</button>
+<button onclick="translatePage('fr')">Traduire en français</button>
+<button onclick="translatePage('es')">Traducir al español</button>
+
+<script>
+async function translatePage(targetLang) {
+    const elements = document.querySelectorAll("body *:not(script):not(style)");
+
+    for (const el of elements) {
+        // On ne traduit que les nœuds texte simples
+        if (el.childNodes.length === 1 && el.childNodes[0].nodeType === 3) {
+            const originalText = el.innerText.trim();
+
+            if (originalText.length > 0) {
+                const translated = await translateText(originalText, targetLang);
+                el.innerText = translated;
+            }
+        }
+    }
+}
+
+async function translateText(text, targetLang) {
+    const res = await fetch("https://libretranslate.com/translate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            q: text,
+            source: "auto",
+            target: targetLang,
+            format: "text"
+        })
+    });
+
+    const data = await res.json();
+    return data.translatedText;
+}
+</script>
