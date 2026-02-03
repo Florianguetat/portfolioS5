@@ -3,7 +3,7 @@ function redirectToLanguage(languageCode) {
     '1': '../francais/accueil.html',
     '2': '../english/home.html',
     '3': '../italiano/iniziale.html',
-    '4': '../espanol/inicio.html',
+    '4': '../español/inicio.html',
     '5': '../deutsch/startseite.html',
     '6': '../portugues/inicial.html'
   };
