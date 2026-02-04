@@ -1,17 +1,28 @@
-<div id="content"></div>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <script src="../translate.js"></script>
+</head>
 
-<script>
-async function loadAndTranslate(lang) {
-    // Charger accueil.html
-    const res = await fetch("../francais/accueil.html");
-    const html = await res.text();
+<body>
+    <script>
+        async function chargerEtTraduire() {
+            // Charge le fichier HTML source
+            const res = await fetch("../francais/accueil.html");
+            const blob = await res.blob();
 
+            // Traduit en anglais
+            const htmlTraduit = await translateHtmlFile(blob, "en");
 
-    // Traduire le contenu injecté
-    html.translatePage(lang);
+            // Affiche le résultat dans la page
+            document.getElementById("resultat").innerText = "";
+            document.open();
+            document.write(htmlTraduit);
+            document.close();
+        }
 
-    
-    // Injecter dans la page
-    document.getElementById("content").innerHTML = html;
-}
-</script>
+        chargerEtTraduire();
+    </script>
+</body>
+</html>
