@@ -1,53 +1,28 @@
 // translation.js
-import fs from "fs";
-import path from "path";
-import fetch from "node-fetch";
 
-const API_KEY = process.env.DEEPL_API_KEY;
-const API_URL = "https://api-free.deepl.com/v2/translate";
+async function translatePage(sourceFile, targetLang) {
+  try {
+    // 1. Charger le fichier source (ex : accueil.html)
+    const response = await fetch(`../francais/${sourceFile}`);
+    const htmlText = await response.text();
 
-async function translateText(text, sourceLang, targetLang) {
-    const params = new URLSearchParams();
-    params.append("auth_key", API_KEY);
-    params.append("text", text);
-    params.append("source_lang", sourceLang.toUpperCase());
-    params.append("target_lang", targetLang.toUpperCase());
+    // 2. Extraire le texte brut (ex : "Bonjour")
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(htmlText, "text/html");
+    const originalText = doc.body.innerText.trim();
 
-    const response = await fetch(API_URL, {
-        method: "POST",
-        body: params
-    });
+    // 3. Appeler l’API de traduction MyMemory
+    const apiUrl = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(originalText)}&langpair=fr|${targetLang}`;
+    const translationResponse = await fetch(apiUrl);
+    const translationData = await translationResponse.json();
 
-    const data = await response.json();
-    return data.translations[0].text;
-}
+    const translatedText = translationData.responseData.translatedText;
 
-function extractHumanText(content) {
-    const htmlText = [...content.matchAll(/>([^<]+)</g)].map(m => m[1].trim());
-    const stringText = [...content.matchAll(/["'`](.*?)["'`]/g)].map(m => m[1]);
+    // 4. Injecter la traduction dans la page courante
+    document.body.innerHTML = `<h1>${translatedText}</h1>`;
 
-    return [...htmlText, ...stringText]
-        .filter(t => t.length > 0 && /[a-zA-ZÀ-ÿ]/.test(t));
-}
-
-function replaceText(content, original, translated) {
-    return content.replace(original, translated);
-}
-
-export async function translateFile(inputFile, sourceLang, targetLang) {
-    const filePath = path.resolve(inputFile);
-    let content = fs.readFileSync(filePath, "utf8");
-
-    const texts = extractHumanText(content);
-    console.log(`→ ${texts.length} segments détectés`);
-
-    for (const segment of texts) {
-        const translated = await translateText(segment, sourceLang, targetLang);
-        content = replaceText(content, segment, translated);
-    }
-
-    const outputFile = filePath.replace(/(\.\w+)$/, `.${targetLang}$1`);
-    fs.writeFileSync(outputFile, content, "utf8");
-
-    console.log(`✔ Fichier traduit généré : ${outputFile}`);
+  } catch (error) {
+    console.error("Erreur dans translation.js :", error);
+    document.body.innerHTML = "<h1>Translation error</h1>";
+  }
 }
