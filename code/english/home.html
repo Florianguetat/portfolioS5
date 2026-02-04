@@ -1,33 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Home (Translated)</title>
-    <script src="../translate.js"></script>
+    <title>Accueil</title>
+    <script src="home.js" defer></script>
 </head>
-
 <body>
-    <script>
-        async function chargerEtTraduire() {
-            try {
-                // Charge le fichier HTML source
-                const res = await fetch("../francais/accueil.html");
-                const blob = await res.blob();
-
-                // Traduit en anglais
-                const htmlTraduit = await translateHtmlFile(blob, "en");
-
-                // Remplace entièrement la page par la version traduite
-                document.open();
-                document.write(htmlTraduit);
-                document.close();
-
-            } catch (err) {
-                document.body.innerHTML = "<h2>Erreur lors de la traduction.</h2><pre>" + err + "</pre>";
-            }
-        }
-
-        chargerEtTraduire();
-    </script>
+    <h1>Page d'accueil</h1>
+    <p>La traduction va se lancer automatiquement.</p>
 </body>
 </html>
