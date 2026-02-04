@@ -1,13 +1,11 @@
-<button onclick="translatePage('en')">Translate to English</button>
-<button onclick="translatePage('fr')">Traduire en français</button>
-<button onclick="translatePage('es')">Traducir al español</button>
+async function translateHtmlFile(file, targetLang) {
+    const text = await file.text();                     // Lecture du fichier .html
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(text, "text/html");
 
-<script>
-async function translatePage(targetLang) {
-    const elements = document.querySelectorAll("body *:not(script):not(style)");
+    const elements = doc.querySelectorAll("body *:not(script):not(style)");
 
     for (const el of elements) {
-        // On ne traduit que les nœuds texte simples
         if (el.childNodes.length === 1 && el.childNodes[0].nodeType === 3) {
             const originalText = el.innerText.trim();
 
@@ -17,6 +15,8 @@ async function translatePage(targetLang) {
             }
         }
     }
+
+    return "<!DOCTYPE html>\n" + doc.documentElement.outerHTML;
 }
 
 async function translateText(text, targetLang) {
@@ -34,4 +34,3 @@ async function translateText(text, targetLang) {
     const data = await res.json();
     return data.translatedText;
 }
-</script>
