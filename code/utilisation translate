@@ -1,7 +1,0 @@
-translatePage('es')  // espagnol
-translatePage('de')  // allemand
-translatePage('zh')  // chinois
-translatePage('ar')  // arabe
-translatePage('hi')  // hindi
-translatePage('ru')  // russe
-translatePage('ja')  // japonais
