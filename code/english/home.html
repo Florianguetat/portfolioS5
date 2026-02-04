@@ -1,1 +1,18 @@
+<div id="content"></div>
 
+<script>
+async function loadAndTranslate(lang) {
+    // Charger accueil.html
+    const res = await fetch("../francais/accueil.html");
+    const html = await res.text();
+
+    // Injecter dans la page
+    document.getElementById("content").innerHTML = html;
+
+    // Traduire le contenu injecté
+    await translatePage(lang);
+}
+</script>
+
+<button onclick="loadAndTranslate('en')">English</button>
+<button onclick="loadAndTranslate('fr')">Français</button>
