@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <script src="../translate.js"></script>
@@ -15,8 +15,7 @@
             // Traduit en anglais
             const htmlTraduit = await translateHtmlFile(blob, "en");
 
-            // Affiche le résultat dans la page
-            document.getElementById("resultat").innerText = "";
+            // Remplace entièrement la page par la version traduite
             document.open();
             document.write(htmlTraduit);
             document.close();
