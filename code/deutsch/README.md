@@ -14,7 +14,7 @@ Jede Datei entspricht einer bestimmten Seite der Website in deutscher Sprache.
 Alle Dateien funktionieren nach dem gleichen Prinzip:
 
 ```html
-<script src="../translation.js"></script>
+<script src="../translation/translation.js"></script>
 <script>
   translatePage("accueil.html", "de");
 </script>
