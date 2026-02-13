@@ -18,7 +18,7 @@ Alle Dateien funktionieren nach dem gleichen Prinzip:
 <script>
   translatePage("accueil.html", "de");
 </script>
-
+```
 ### Erklärung
 
 - `translation.js` enthält die zentrale Übersetzungslogik der Website.  
