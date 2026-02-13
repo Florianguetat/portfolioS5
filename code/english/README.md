@@ -14,7 +14,7 @@ Each file corresponds to a specific page of the website in English.
 All files work according to the same principle:
 
 ```html
-<script src="../translation.js"></script>
+<script src="../translate/translation.js"></script>
 <script>
   translatePage("accueil.html", "en");
 </script>
