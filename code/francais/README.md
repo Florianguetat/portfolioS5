@@ -10,7 +10,7 @@ Ces fichiers jouent un double rôle :
 
 ## Contenu
 
-Le répertoire comprend plusieurs fichiers HTML, chacun correspondant à une page spécifique du site (par exemple : page d’accueil, pages de contenu, etc.).
+Le répertoire comprend plusieurs fichiers HTML, chacun correspondant à une page spécifique du site.
 
 Ces fichiers sont considérés comme la **source d’origine** :  
 les autres langues (allemand, anglais, espagnol, italien, portugais, etc.) se basent sur ces pages pour générer leur contenu traduit.
